@@ -101,18 +101,68 @@ class Base(Training_ML):
 
         print(self.yieldingQualityOnly)
 
+        # ends here
+
+        # number of types in Is Field Irrigated
+        self.typesIrrigatedOnly = []
+        self.typesIrrigatedOnly.append(self.isIrrigated[0])
+        for i in range(0, len(self.isIrrigated)):
+            finalChecker = True
+            compare = self.isIrrigated[i]
+            for j in self.typesIrrigatedOnly:
+
+                if compare != j:
+                    finalChecker = False
+                else:
+                    finalChecker = True
+                    break
+            if finalChecker == False:
+                self.typesIrrigatedOnly.append(compare)
+                finalChecker = True
+
+        print(self.typesIrrigatedOnly)
 
         # ends here
-        #self.sortingBasedOnQualityRemarks()
+        # types of water sources used for irrigation purpose
+
+        self.typesWaterSourceOnly = []
+        self.typesWaterSourceOnly.append(self.waterSource[0])
+        for i in range(0, len(self.waterSource)):
+            finalChecker = True
+            compare = self.waterSource[i]
+            for j in self.typesWaterSourceOnly:
+
+                if compare != j:
+                    finalChecker = False
+                else:
+                    finalChecker = True
+                    break
+            if finalChecker == False:
+                self.typesWaterSourceOnly.append(compare)
+                finalChecker = True
+
+        print(self.typesWaterSourceOnly)
+        # ends here
+        # types of weather condition during the crop season
+        self.typesConditionOnly = []
+        self.typesConditionOnly.append(self.weatherCond[0])
+        for i in range(0, len(self.weatherCond)):
+            finalChecker = True
+            compare = self.weatherCond[i]
+            for j in self.typesConditionOnly:
+
+                if compare != j:
+                    finalChecker = False
+                else:
+                    finalChecker = True
+                    break
+            if finalChecker == False:
+                self.typesConditionOnly.append(compare)
+                finalChecker = True
+
+        print(self.typesConditionOnly)
 
 
-    '''def algorithmProcess(self):
 
-        for i in range(2, self.numberOfRows):
-            arr = self.workSheet.cell(row=i, column=)
-        for variety in self.varietyNameOnly:
-
-            for seedsSource in self.sourceSeedOnly:
-    '''
 
 

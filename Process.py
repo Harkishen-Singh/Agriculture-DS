@@ -22,7 +22,7 @@ class Process(Sorter):
                 self.row = self.row + 1
             else:
                 break
-        print('Number of rows in sorted = '+ str(self.row))
+        #print('Number of rows in sorted = '+ str(self.row))
         self.processing()
 
     def processing(self):
@@ -50,10 +50,10 @@ class Process(Sorter):
                             if uu2.isdigit() or uu2 == '.'  : number = number + uu2
                         p2 = float(number)
                         number = ''
-                        print('p1 is ' + str(p1) + ' p2 is ' + str(p2))
+                        #print('p1 is ' + str(p1) + ' p2 is ' + str(p2))
                     if type(seedExtractor2) == int:
                         p2 = seedExtractor2
-                        print('p1 is '+str(p1) + ' p2(int wala) is '+str(p2))
+                        #print('p1 is '+str(p1) + ' p2(int wala) is '+str(p2))
 
                     self.totalseeds = p1 * p2
                 else:
@@ -75,14 +75,14 @@ class Process(Sorter):
                                 if uu2.isdigit() or uu2 == '.' : number = number + uu2
                             p2 = float(number)
                             number = ''
-                            print('p1 is ' + str(p1) + ' p2 is ' + str(p2))
+                            #print('p1 is ' + str(p1) + ' p2 is ' + str(p2))
                         if type(seedExtractor2) == int:
                             p2 = seedExtractor2
-                            print('p1 is ' + str(p1) + ' p2(int wala) is ' + str(p2))
+                            #print('p1 is ' + str(p1) + ' p2(int wala) is ' + str(p2))
 
                         self.totalseeds = p1 * p2
-                print(str(self.ws3.cell(row=no, column=15).value) + ' ' + str(self.totalseeds))
-                print(str(self.ws3.cell(row=no, column=15).value) + ' here is it' + str(i))
+                #print(str(self.ws3.cell(row=no, column=15).value) + ' ' + str(self.totalseeds))
+                #print(str(self.ws3.cell(row=no, column=15).value) + ' here is it' + str(i))
                 self.greenWtProduced_ratio = self.ws3.cell(row=no, column=15).value / self.totalseeds
                 self.DryWtProduced_ratio = self.ws3.cell(row=no, column=16).value / self.totalseeds
                 self.normalYldKilo_ratio = self.ws3.cell(row=no, column=18).value / self.totalseeds
@@ -113,10 +113,10 @@ class Process(Sorter):
                             if uu2.isdigit() or uu2 == '.'  : number = number + uu2
                         p2 = float(number)
                         number = ''
-                        print('p1 is ' + str(p1) + ' p2 is ' + str(p2))
+                        #print('p1 is ' + str(p1) + ' p2 is ' + str(p2))
                     if type(seedExtractor2) == int:
                         p2 = seedExtractor2
-                        print('p1 is '+str(p1) + ' p2(int wala) is '+str(p2))
+                        #print('p1 is '+str(p1) + ' p2(int wala) is '+str(p2))
 
                     self.totalseeds = p1 * p2
                 else:
@@ -138,13 +138,13 @@ class Process(Sorter):
                                 if uu2.isdigit() or uu2 == '.' : number = number + uu2
                             p2 = float(number)
                             number = ''
-                            print('p1 is ' + str(p1) + ' p2 is ' + str(p2))
+                            #print('p1 is ' + str(p1) + ' p2 is ' + str(p2))
                         if type(seedExtractor2) == int:
                             p2 = seedExtractor2
-                            print('p1 is ' + str(p1) + ' p2(int wala) is ' + str(p2))
+                            #print('p1 is ' + str(p1) + ' p2(int wala) is ' + str(p2))
 
                         self.totalseeds = p1 * p2
-                print(str(self.ws3.cell(row=no, column=15).value) + ' ' + str(self.totalseeds))
+                #print(str(self.ws3.cell(row=no, column=15).value) + ' ' + str(self.totalseeds))
 
                 self.greenWtProduced_ratio =  self.ws3.cell(row = no, column = 15).value / self.totalseeds
                 self.DryWtProduced_ratio = self.ws3.cell(row = no, column = 16).value / self.totalseeds
@@ -162,12 +162,15 @@ class Process(Sorter):
                 counter = counter + 1
 
 
+
         self.saver()
 
     def saver(self):
-        print('Number of varities : '+ str(len(self.varietyNameOnly)))
-        print(self.varietyNameOnly)
+        #print('Number of varities : '+ str(len(self.varietyNameOnly)))
+        #print(self.varietyNameOnly)
         self.file.save('ratio_saver.xlsx')
+
+
 
 
 
