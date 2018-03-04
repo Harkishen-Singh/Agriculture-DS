@@ -20,6 +20,16 @@ class Process(Sorter):
         self.processing_Good()
 
     def processing_Good(self):
+        filename = self.sortedFileName_Good
+        self.wb3 = load_workbook(self.sortedFileName_Good)
+        self.ws3 = self.wb3['Sorted']
+        self.row = 2
+
+        while (self.row):
+            if self.ws3.cell(row=self.row, column=2).value != None:
+                self.row = self.row + 1
+            else:
+                break
 
         file = Workbook()
         sheet = file.active
@@ -319,19 +329,19 @@ class Process(Sorter):
                     sn = sn + self.normalYldKilo_ratio;
                     an = an + 1
 
-                if self.ws3.cell(row=no, column=8).value != self.ws3.cell(row=no - 1, column=8).value:
-                    sheet.cell(row=counter, column=1, value=sg / ag);
-                    ag = 0;
-                    sg = 0
-                    sheet.cell(row=counter, column=2, value=sd / ad);
-                    ad = 0;
-                    sd = 0
-                    sheet.cell(row=counter, column=3, value=sn / an);
-                    an = 0;
-                    sn = 0
-                    sheet.cell(row=counter, column=4, value=self.ws3.cell(row=no, column=8).value)
-                    checker = True
-                    counter = counter + 1
+            if self.ws3.cell(row=no, column=8).value != self.ws3.cell(row=no - 1, column=8).value:
+                sheet.cell(row=counter, column=1, value=sg / ag);
+                ag = 0;
+                sg = 0
+                sheet.cell(row=counter, column=2, value=sd / ad);
+                ad = 0;
+                sd = 0
+                sheet.cell(row=counter, column=3, value=sn / an);
+                an = 0;
+                sn = 0
+                sheet.cell(row=counter, column=4, value=self.ws3.cell(row=no, column=8).value)
+                checker = True
+                counter = counter + 1
 
         file.save('ratio_normal.xlsx')
         self.processing_Bad()
@@ -485,19 +495,19 @@ class Process(Sorter):
                     sn = sn + self.normalYldKilo_ratio;
                     an = an + 1
 
-                if self.ws3.cell(row=no, column=8).value != self.ws3.cell(row=no - 1, column=8).value:
-                    sheet.cell(row=counter, column=1, value=sg / ag);
-                    ag = 0;
-                    sg = 0
-                    sheet.cell(row=counter, column=2, value=sd / ad);
-                    ad = 0;
-                    sd = 0
-                    sheet.cell(row=counter, column=3, value=sn / an);
-                    an = 0;
-                    sn = 0
-                    sheet.cell(row=counter, column=4, value=self.ws3.cell(row=no, column=8).value)
-                    checker = True
-                    counter = counter + 1
+            if self.ws3.cell(row=no, column=8).value != self.ws3.cell(row=no - 1, column=8).value:
+                sheet.cell(row=counter, column=1, value=sg / ag);
+                ag = 0;
+                sg = 0
+                sheet.cell(row=counter, column=2, value=sd / ad);
+                ad = 0;
+                sd = 0
+                sheet.cell(row=counter, column=3, value=sn / an);
+                an = 0;
+                sn = 0
+                sheet.cell(row=counter, column=4, value=self.ws3.cell(row=no, column=8).value)
+                checker = True
+                counter = counter + 1
 
         file.save('ratio_bad.xlsx')
 
@@ -510,5 +520,5 @@ class Process(Sorter):
 
 obj = Process()
 obj.individualAllotment()
-obj.process()
+obj.process_General()
 obj.xx()
