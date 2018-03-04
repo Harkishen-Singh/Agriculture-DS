@@ -52,9 +52,9 @@ class Sorter(Base):
 
         #print(self.headingsSheet)
         ws2.title = 'Sorted'
-        wb2.save('sortedFile_General_'+self.workbook_name[2:])
-        print('Sorted Data saved at '+ 'sortedFile_General_'+self.workbook_name[2:])
-        self.sortedFileName = 'sortedFile'+self.workbook_name[2:]
+        wb2.save('./sorts/sortedFile_General_'+self.workbook_name[2:])
+        print('Sorted Data saved at '+ './sorts/sortedFile_General_'+self.workbook_name[2:])
+        self.sortedFileName = './sorts/sortedFile_General_'+self.workbook_name[2:]
         self.process_Good()
 
     def process_Good(self):
@@ -108,9 +108,9 @@ class Sorter(Base):
 
         #print(self.headingsSheet)
         ws2.title = 'Sorted'
-        wb2.save('sortedFile_Good_'+self.workbook_name[2:])
-        print('Sorted Data saved at '+ 'sortedFile_Good_'+self.workbook_name[2:])
-        self.sortedFileName_Good = 'sortedFile_Good_'+self.workbook_name[2:]
+        wb2.save('./sorts/sortedFile_Good_'+self.workbook_name[2:])
+        print('Sorted Data saved at '+ './sorts/sortedFile_Good_'+self.workbook_name[2:])
+        self.sortedFileName_Good = './sorts/sortedFile_Good_'+self.workbook_name[2:]
         self.process_Normal()
 
     def process_Normal(self):
@@ -164,9 +164,9 @@ class Sorter(Base):
 
         #print(self.headingsSheet)
         ws2.title = 'Sorted'
-        wb2.save('sortedFile_Normal_'+self.workbook_name[2:])
-        print('Sorted Data saved at '+ 'sortedFile_Normal_'+self.workbook_name[2:])
-        self.sortedFileName_Normal = 'sortedFile_Normal_'+self.workbook_name[2:]
+        wb2.save('./sorts/sortedFile_Normal_'+self.workbook_name[2:])
+        print('Sorted Data saved at '+ './sorts/sortedFile_Normal_'+self.workbook_name[2:])
+        self.sortedFileName_Normal = './sorts/sortedFile_Normal_'+self.workbook_name[2:]
         self.process_Bad()
 
     def process_Bad(self):
@@ -220,9 +220,9 @@ class Sorter(Base):
 
         #print(self.headingsSheet)
         ws2.title = 'Sorted'
-        wb2.save('sortedFile_Bad_'+self.workbook_name[2:])
-        print('Sorted Data saved at '+ 'sortedFile_Bad_'+self.workbook_name[2:])
-        self.sortedFileName_Bad = 'sortedFile_Bad_'+self.workbook_name[2:]
+        wb2.save('./sorts/sortedFile_Bad_'+self.workbook_name[2:])
+        print('Sorted Data saved at '+ './sorts/sortedFile_Bad_'+self.workbook_name[2:])
+        self.sortedFileName_Bad = './sorts/sortedFile_Bad_'+self.workbook_name[2:]
         
     
 

@@ -177,7 +177,7 @@ class Process(Sorter):
                     checker = True
                     counter = counter + 1
 
-        file.save('ratio_good.xlsx')
+        file.save('./ratios/ratio_good.xlsx')
         self.processing_Normal()
 
     def processing_Normal(self):
@@ -353,7 +353,7 @@ class Process(Sorter):
                 checker = True
                 counter = counter + 1
 
-        file.save('ratio_normal.xlsx')
+        file.save('./ratios/ratio_normal.xlsx')
         self.processing_Bad()
 
     def processing_Bad(self):
@@ -529,7 +529,7 @@ class Process(Sorter):
                 checker = True
                 counter = counter + 1
 
-        file.save('ratio_bad.xlsx')
+        file.save('./ratios/ratio_bad.xlsx')
 
 
 
