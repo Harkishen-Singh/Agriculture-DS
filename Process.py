@@ -181,6 +181,16 @@ class Process(Sorter):
         self.processing_Normal()
 
     def processing_Normal(self):
+        filename = self.sortedFileName_Normal
+        self.wb3 = load_workbook(self.sortedFileName_Normal)
+        self.ws3 = self.wb3['Sorted']
+        self.row = 2
+
+        while (self.row):
+            if self.ws3.cell(row=self.row, column=2).value != None:
+                self.row = self.row + 1
+            else:
+                break
 
         file = Workbook()
         sheet = file.active
@@ -347,6 +357,16 @@ class Process(Sorter):
         self.processing_Bad()
 
     def processing_Bad(self):
+        filename = self.sortedFileName_Bad
+        self.wb3 = load_workbook(self.sortedFileName_Bad)
+        self.ws3 = self.wb3['Sorted']
+        self.row = 2
+
+        while (self.row):
+            if self.ws3.cell(row=self.row, column=2).value != None:
+                self.row = self.row + 1
+            else:
+                break
 
         file = Workbook()
         sheet = file.active
