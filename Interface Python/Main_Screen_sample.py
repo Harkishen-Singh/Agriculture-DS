@@ -336,7 +336,38 @@ class Ui_MainWindow(object):
 
 
     def responseToMulti(self): ## points to multi caller
-        a=1
+        self.Form3.destroy()
+        self.Form5 = QtWidgets.QWidget()
+        self.setupUi5(self.Form5)
+
+    def setupUi5(self, Form):
+        self.Form5.setObjectName("Form")
+        self.Form5.resize(747, 537)
+        self.pushButton = QtWidgets.QPushButton(self.Form5)
+        self.pushButton.setGeometry(QtCore.QRect(240, 450, 271, 36))
+        self.pushButton.setObjectName("pushButton")
+        self.label = QtWidgets.QLabel(self.Form5)
+        self.label.setGeometry(QtCore.QRect(50, 30, 631, 371))
+        self.label.setObjectName("label")
+
+        self.retranslateUi5(self.Form5)
+        QtCore.QMetaObject.connectSlotsByName(self.Form5)
+
+    def retranslateUi5(self, Form):
+        _translate = QtCore.QCoreApplication.translate
+        self.Form5.setWindowTitle(_translate("Form", "Multi Input through .csv"))
+        self.pushButton.setText(_translate("Form", "Yes, It has the required columns"))
+        self.label.setText(_translate("Form", "Make sure, your csv file has the following heading as the columns headings:\n"
+        "\n"
+        "variety name\n"
+        "system of cultivation\n"
+        "is irrigated\n"
+        "yielding type\n"
+        "pest damage\n"
+        "seeds per hectare\n"
+        "operation size\n"
+        "cultivation size"))
+        self.Form5.show()
 
 if __name__ == "__main__":
     import sys
