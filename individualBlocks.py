@@ -71,22 +71,7 @@ class Block_Division(Reason):
 
     def extracting_required_files(self):
         # creating new files
-        nb = Workbook()
-        nn = Workbook()
-        ng = Workbook()
-        ngeneral = Workbook()
 
-        nsBad = nb.active
-        nsBad.title = 'Sorted'
-
-        nsNormal = nn.active
-        nsNormal.title = 'Sorted'
-
-        nsGood = ng.active
-        nsGood.title = 'Sorted'
-
-        nsGeneral = ngeneral.active
-        nsGeneral.title = 'Sorted'
 
         print('Extracting files')
         i = 1
@@ -96,6 +81,23 @@ class Block_Division(Reason):
         g = 1
 
         for blocks in self.blockNames :
+
+            nb = Workbook()
+            nn = Workbook()
+            ng = Workbook()
+            ngeneral = Workbook()
+
+            nsBad = nb.active
+            nsBad.title = 'Sorted'
+
+            nsNormal = nn.active
+            nsNormal.title = 'Sorted'
+
+            nsGood = ng.active
+            nsGood.title = 'Sorted'
+
+            nsGeneral = ngeneral.active
+            nsGeneral.title = 'Sorted'
 
             i = 1
             a = 1
@@ -145,6 +147,7 @@ class Block_Division(Reason):
                     break
 
                 if blocks == self.sheet_bad.cell(row=i, column= 2).value :
+                    print('Blocks : '+blocks + '\tWorkbook block : '+self.sheet_bad.cell(row=i, column= 2).value)
                     a +=1
                     nsBad.cell(row=a, column=2, value=self.sheet_bad.cell(row=i, column=2).value)
                     nsBad.cell(row=a, column=3, value=self.sheet_bad.cell(row=i, column=3).value)
@@ -171,6 +174,9 @@ class Block_Division(Reason):
                     nsBad.cell(row=a, column=24, value=self.sheet_bad.cell(row=i, column=24).value)
                     nsBad.cell(row=a, column=25, value=self.sheet_bad.cell(row=i, column=25).value)
                     nsBad.cell(row=a, column=26, value=self.sheet_bad.cell(row=i, column=26).value)
+
+            i = 1
+            a = 1
 
             while True:
                 i += 1
@@ -249,6 +255,10 @@ class Block_Division(Reason):
             nn.save('Blocks/'+blocks+'/sorts/'+'sortedFile_Normal_' + self.globalWorkBookName+ '_.xlsx')
             ng.save('Blocks/'+blocks+'/sorts/'+'sortedFile_Good_' + self.globalWorkBookName+ '_.xlsx')
             ngeneral.save('Blocks/'+blocks+'/sorts/'+'sortedFile_General_' + self.globalWorkBookName+ '_.xlsx')
+            nb.close()
+            nn.close()
+            ng.close()
+            ngeneral.close()
 
         self.building_Good()
 
