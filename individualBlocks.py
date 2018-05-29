@@ -147,7 +147,7 @@ class Block_Division(Reason):
                     break
 
                 if blocks == self.sheet_bad.cell(row=i, column= 2).value :
-                    print('Blocks : '+blocks + '\tWorkbook block : '+self.sheet_bad.cell(row=i, column= 2).value)
+
                     a +=1
                     nsBad.cell(row=a, column=2, value=self.sheet_bad.cell(row=i, column=2).value)
                     nsBad.cell(row=a, column=3, value=self.sheet_bad.cell(row=i, column=3).value)
@@ -247,7 +247,7 @@ class Block_Division(Reason):
                     nsGood.cell(row=a, column=25, value=self.sheet_good.cell(row=i, column=25).value)
                     nsGood.cell(row=a, column=26, value=self.sheet_good.cell(row=i, column=26).value)
 
-            print('Creating the required Files')
+
 
             # saving the files
 
@@ -259,22 +259,18 @@ class Block_Division(Reason):
             nn.close()
             ng.close()
             ngeneral.close()
+            print('Required Files Created.')
 
         self.building_Good()
 
     def building_Good(self):
         print('\nBuilding "Good" Sectors ...')
-        for i in range(0, len(self.blockName)) :
+        print(len(self.blockNames))
+        for j in range(0, len(self.blockNames)) :
 
-            if i != 0:
-                if self.blockName[i] == self.blockName[i-1] :
-                    continue
-
-        #for blocks in self.blockName :
-            print(self.blockName[i] + ' is now going on')
 
             #filename = self.sortedFileName_Good
-            filename = 'Blocks/'+self.blockName[i]+'/sorts/sortedFile_Good_'+self.globalWorkBookName+'_.xlsx'
+            filename = 'Blocks/'+self.blockNames[j]+'/sorts/sortedFile_Good_'+self.globalWorkBookName+'_.xlsx'
             wb3 = load_workbook(filename)
             ws3 = wb3['Sorted']
             row = 2
@@ -297,13 +293,12 @@ class Block_Division(Reason):
             sn = 0;
             counter = 2
             ag = 0;
-            ad = 0;
+            ad = 0;number = '';p1=1;p2=1
             an = 0
             checker = True;
             rowCounter = 1
             for i in range(2, row):
 
-                if ws3.cell(row=i, column=19).value == 'Good':
 
                     rowCounter = rowCounter + 1
                     no = i
@@ -449,24 +444,20 @@ class Block_Division(Reason):
                         sheet.cell(row=counter, column=4, value=ws3.cell(row=no, column=8).value)
                         checker = True
                         counter = counter + 1
+            print(i)
+            file.save('Blocks/'+self.blockNames[j]+'/ratios/ratio_good_' + self.globalWorkBookName + '.xlsx')
+            file.close()
 
-            file.save('Blocks/'+self.blockName[i]+'/ratios/ratio_good_' + self.globalWorkBookName + '.xlsx')
         self.building_Normal()
 
     def building_Normal(self):
 
         print('\nBuilding "Normal" Sectors ...')
 
-        for i in range(0, len(self.blockName)) :
+        for j in range(0, len(self.blockNames)) :
 
-            if i != 0:
-                if self.blockName[i] == self.blockName[i-1] :
-                    continue
-
-        #for blocks in self.blockName :
-            print(self.blockName[i] + ' is currently going on')
             #filename = self.sortedFileName_Good
-            filename = 'Blocks/'+self.blockName[i]+'/sorts/sortedFile_Normal_'+self.globalWorkBookName+'_.xlsx'
+            filename = 'Blocks/'+self.blockNames[j]+'/sorts/sortedFile_Normal_'+self.globalWorkBookName+'_.xlsx'
             wb3 = load_workbook(filename)
             ws3 = wb3['Sorted']
             row = 2
@@ -489,13 +480,12 @@ class Block_Division(Reason):
             sn = 0;
             counter = 2
             ag = 0;
-            ad = 0;
+            ad = 0;number = '';p1=1;p2=1
             an = 0
             checker = True;
             rowCounter = 1
             for i in range(2, row):
 
-                if ws3.cell(row=i, column=19).value == 'Good':
 
                     rowCounter = rowCounter + 1
                     no = i
@@ -642,23 +632,18 @@ class Block_Division(Reason):
                         checker = True
                         counter = counter + 1
 
-            file.save('Blocks/'+self.blockName[i]+'/ratios/ratio_normal_' + self.globalWorkBookName + '.xlsx')
+            file.save('Blocks/'+self.blockNames[j]+'/ratios/ratio_normal_' + self.globalWorkBookName + '.xlsx')
+            file.close()
         self.building_Bad()
 
     def building_Bad(self):
 
         print('\nBuilding "Bad" Sectors ...\n')
-        for i in range(0, len(self.blockName)) :
+        for j in range(0, len(self.blockNames)) :
 
-            if i != 0:
-                if self.blockName[i] == self.blockName[i-1] :
-                    continue
-
-        #for blocks in self.blockName :
-            print(self.blockName[i] + ' is currently going on')
 
             #filename = self.sortedFileName_Good
-            filename = 'Blocks/'+self.blockName[i]+'/sorts/sortedFile_Bad_'+self.globalWorkBookName+'_.xlsx'
+            filename = 'Blocks/'+self.blockNames[j]+'/sorts/sortedFile_Bad_'+self.globalWorkBookName+'_.xlsx'
             wb3 = load_workbook(filename)
             ws3 = wb3['Sorted']
             row = 2
@@ -681,13 +666,12 @@ class Block_Division(Reason):
             sn = 0;
             counter = 2
             ag = 0;
-            ad = 0;
+            ad = 0;number = '';p1=1;p2=1
             an = 0
             checker = True;
             rowCounter = 1
             for i in range(2, row):
 
-                if ws3.cell(row=i, column=19).value == 'Good':
 
                     rowCounter = rowCounter + 1
                     no = i
@@ -834,8 +818,757 @@ class Block_Division(Reason):
                         checker = True
                         counter = counter + 1
 
-            file.save('Blocks/'+self.blockName[i]+'/ratios/ratio_bad_' + self.globalWorkBookName + '.xlsx')
-        print(self.blockName)
+            file.save('Blocks/'+self.blockNames[j]+'/ratios/ratio_bad_' + self.globalWorkBookName + '.xlsx')
+            file.close()
+        self.manures_good()
+
+
+    def manures_good(self):
+        print('Calculating individual yeilds. This might take some time.')
+        for jj in range(0,len(self.blockNames)):
+            rows = 2
+            file = load_workbook('Blocks/'+self.blockNames[jj]+'/sorts/sortedFile_Good_' + self.globalWorkBookName + '_.xlsx')
+            sheet = file['Sorted']
+            while (True):
+                if sheet.cell(row=rows, column=2).value != None:
+                    rows = rows + 1
+                else:
+
+                    break
+
+            total_chemfer = 0;
+            c_chemfer = 0
+            total_manure = 0;
+            c_manure = 0
+            file2 = load_workbook('Blocks/'+self.blockNames[jj]+'/ratios/ratio_good_' + self.globalWorkBookName + '.xlsx')
+            sheet2 = file2['Sheet']
+            sheet2.cell(row=1, column=5, value='ChemFer_Ratio')
+            sheet2.cell(row=1, column=6, value='Manure_Ratio')
+            varietyCount = 2
+
+            for i in range(2, rows):
+
+                if sheet.cell(row=i, column=8).value == sheet.cell(row=i + 1, column=8).value:
+
+                    if sheet.cell(row=i, column=12).value == None:
+                        c_chemfer = c_chemfer + 1
+
+                    elif type(sheet.cell(row=i, column=12).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=12).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_chemfer = total_chemfer + float(number)
+                        c_chemfer = c_chemfer + 1
+                    else:
+                        total_chemfer = total_chemfer + float(sheet.cell(row=i, column=12).value)
+                        c_chemfer = c_chemfer + 1
+
+                    if sheet.cell(row=i, column=11).value == None:
+                        c_manure = c_manure + 1
+
+                    elif type(sheet.cell(row=i, column=11).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=11).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_manure = total_manure + float(number)
+                        c_manure = c_manure + 1
+                    else:
+                        total_manure = total_manure + float(sheet.cell(row=i, column=11).value)
+                        c_manure = c_manure + 1
+
+                if sheet.cell(row=i, column=8).value != sheet.cell(row=i + 1, column=8).value:
+
+                    if sheet.cell(row=i, column=12).value == None:
+                        c_chemfer = c_chemfer + 1
+
+                    elif type(sheet.cell(row=i, column=12).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=12).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_chemfer = total_chemfer + float(number)
+                        c_chemfer = c_chemfer + 1
+                    else:
+                        total_chemfer = total_chemfer + float(sheet.cell(row=i, column=12).value)
+                        c_chemfer = c_chemfer + 1
+
+                    if sheet.cell(row=i, column=11).value == None:
+                        c_manure = c_manure + 1
+
+                    elif type(sheet.cell(row=i, column=11).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=11).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_manure = total_manure + float(number)
+                        c_manure = c_manure + 1
+                    else:
+                        total_manure = total_manure + float(sheet.cell(row=i, column=11).value)
+                        c_manure = c_manure + 1
+
+                    '''print(str(sheet2.cell(row=varietyCount, column=4).value) + ' '+ str(total_chemfer / c_chemfer) + ' '
+                          + str(total_manure / c_manure) + ' '
+                          + str(sheet.cell(row= i, column=8).value))
+                    '''
+                    sheet2.cell(row=varietyCount, column=5, value=total_chemfer / c_chemfer)
+                    sheet2.cell(row=varietyCount, column=6, value=total_manure / c_manure)
+                    sheet2.cell(row=varietyCount, column=7, value=sheet.cell(row=i, column=8).value)
+                    varietyCount = varietyCount + 1
+                    total_manure = 0;
+                    c_manure = 0
+                    total_chemfer = 0;
+                    c_chemfer = 0
+
+            file2.save('Blocks/'+self.blockNames[jj]+'/ratios/ratio_good_' + self.globalWorkBookName + '.xlsx')
+            file2.close()
+            self.manures_normal()
+
+    def manures_normal(self):
+        for jj in range(0,len(self.blockNames)):
+            rows = 2
+            file = load_workbook('Blocks/'+self.blockNames[jj]+'/sorts/sortedFile_Normal_' + self.globalWorkBookName + '_.xlsx')
+            sheet = file['Sorted']
+            while (True):
+                if sheet.cell(row=rows, column=2).value != None:
+                    rows = rows + 1
+                else:
+
+                    break
+
+            total_chemfer = 0;
+            c_chemfer = 0
+            total_manure = 0;
+            c_manure = 0
+            file2 = load_workbook('Blocks/'+self.blockNames[jj]+'/ratios/ratio_normal_' + self.globalWorkBookName + '.xlsx')
+            sheet2 = file2['Sheet']
+            sheet2.cell(row=1, column=5, value='ChemFer_Ratio')
+            sheet2.cell(row=1, column=6, value='Manure_Ratio')
+            varietyCount = 2
+
+            for i in range(2, rows):
+
+                if sheet.cell(row=i, column=8).value == sheet.cell(row=i + 1, column=8).value:
+
+                    if sheet.cell(row=i, column=12).value == None:
+                        c_chemfer = c_chemfer + 1
+
+                    elif type(sheet.cell(row=i, column=12).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=12).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_chemfer = total_chemfer + float(number)
+                        c_chemfer = c_chemfer + 1
+                    else:
+                        total_chemfer = total_chemfer + float(sheet.cell(row=i, column=12).value)
+                        c_chemfer = c_chemfer + 1
+
+                    if sheet.cell(row=i, column=11).value == None:
+                        c_manure = c_manure + 1
+
+                    elif type(sheet.cell(row=i, column=11).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=11).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_manure = total_manure + float(number)
+                        c_manure = c_manure + 1
+                    else:
+                        total_manure = total_manure + float(sheet.cell(row=i, column=11).value)
+                        c_manure = c_manure + 1
+
+                if sheet.cell(row=i, column=8).value != sheet.cell(row=i + 1, column=8).value:
+
+                    if sheet.cell(row=i, column=12).value == None:
+                        c_chemfer = c_chemfer + 1
+
+                    elif type(sheet.cell(row=i, column=12).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=12).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_chemfer = total_chemfer + float(number)
+                        c_chemfer = c_chemfer + 1
+                    else:
+                        total_chemfer = total_chemfer + float(sheet.cell(row=i, column=12).value)
+                        c_chemfer = c_chemfer + 1
+
+                    if sheet.cell(row=i, column=11).value == None:
+                        c_manure = c_manure + 1
+
+                    elif type(sheet.cell(row=i, column=11).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=11).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_manure = total_manure + float(number)
+                        c_manure = c_manure + 1
+                    else:
+                        total_manure = total_manure + float(sheet.cell(row=i, column=11).value)
+                        c_manure = c_manure + 1
+
+                    '''print(str(sheet2.cell(row=varietyCount, column=4).value) + ' '+ str(total_chemfer / c_chemfer) + ' '
+                          + str(total_manure / c_manure) + ' '
+                          + str(sheet.cell(row= i, column=8).value))
+                    '''
+                    sheet2.cell(row=varietyCount, column=5, value=total_chemfer / c_chemfer)
+                    sheet2.cell(row=varietyCount, column=6, value=total_manure / c_manure)
+                    sheet2.cell(row=varietyCount, column=7, value=sheet.cell(row=i, column=8).value)
+                    varietyCount = varietyCount + 1
+                    total_manure = 0;
+                    c_manure = 0
+                    total_chemfer = 0;
+                    c_chemfer = 0
+
+            file2.save('Blocks/'+self.blockNames[jj]+'/ratios/ratio_normal_' + self.globalWorkBookName + '.xlsx')
+            file2.close()
+        self.manures_bad()
+    def manures_bad(self):
+        for jj in range(0,len(self.blockNames)):
+            rows = 2
+            file = load_workbook('Blocks/'+self.blockNames[jj]+'/sorts/sortedFile_Bad_' + self.globalWorkBookName + '_.xlsx')
+            sheet = file['Sorted']
+            while (True):
+                if sheet.cell(row=rows, column=2).value != None:
+                    rows = rows + 1
+                else:
+
+                    break
+
+            total_chemfer = 0;
+            c_chemfer = 0
+            total_manure = 0;
+            c_manure = 0
+            file2 = load_workbook('Blocks/'+self.blockNames[jj]+'/ratios/ratio_bad_' + self.globalWorkBookName + '.xlsx')
+            sheet2 = file2['Sheet']
+            sheet2.cell(row=1, column=5, value='ChemFer_Ratio')
+            sheet2.cell(row=1, column=6, value='Manure_Ratio')
+            varietyCount = 2
+
+            for i in range(2, rows):
+
+                if sheet.cell(row=i, column=8).value == sheet.cell(row=i + 1, column=8).value:
+
+                    if sheet.cell(row=i, column=12).value == None:
+                        c_chemfer = c_chemfer + 1
+
+                    elif type(sheet.cell(row=i, column=12).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=12).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_chemfer = total_chemfer + float(number)
+                        c_chemfer = c_chemfer + 1
+                    else:
+                        total_chemfer = total_chemfer + float(sheet.cell(row=i, column=12).value)
+                        c_chemfer = c_chemfer + 1
+
+                    if sheet.cell(row=i, column=11).value == None:
+                        c_manure = c_manure + 1
+
+                    elif type(sheet.cell(row=i, column=11).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=11).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_manure = total_manure + float(number)
+                        c_manure = c_manure + 1
+                    else:
+                        total_manure = total_manure + float(sheet.cell(row=i, column=11).value)
+                        c_manure = c_manure + 1
+
+                if sheet.cell(row=i, column=8).value != sheet.cell(row=i + 1, column=8).value:
+
+                    if sheet.cell(row=i, column=12).value == None:
+                        c_chemfer = c_chemfer + 1
+
+                    elif type(sheet.cell(row=i, column=12).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=12).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_chemfer = total_chemfer + float(number)
+                        c_chemfer = c_chemfer + 1
+                    else:
+                        total_chemfer = total_chemfer + float(sheet.cell(row=i, column=12).value)
+                        c_chemfer = c_chemfer + 1
+
+                    if sheet.cell(row=i, column=11).value == None:
+                        c_manure = c_manure + 1
+
+                    elif type(sheet.cell(row=i, column=11).value) == str:
+                        number = ''
+                        for j in sheet.cell(row=i, column=11).value:
+                            if j.isdigit():
+                                number = number + j
+                        total_manure = total_manure + float(number)
+                        c_manure = c_manure + 1
+                    else:
+                        total_manure = total_manure + float(sheet.cell(row=i, column=11).value)
+                        c_manure = c_manure + 1
+
+                    '''print(str(sheet2.cell(row=varietyCount, column=4).value) + ' '+ str(total_chemfer / c_chemfer) + ' '
+                          + str(total_manure / c_manure) + ' '
+                          + str(sheet.cell(row= i, column=8).value))
+                    '''
+                    sheet2.cell(row=varietyCount, column=5, value=total_chemfer / c_chemfer)
+                    sheet2.cell(row=varietyCount, column=6, value=total_manure / c_manure)
+                    sheet2.cell(row=varietyCount, column=7, value=sheet.cell(row=i, column=8).value)
+                    varietyCount = varietyCount + 1
+                    total_manure = 0;
+                    c_manure = 0
+                    total_chemfer = 0;
+                    c_chemfer = 0
+
+            file2.save('Blocks/'+self.blockNames[jj]+'/ratios/ratio_bad_' + self.globalWorkBookName + '.xlsx')
+            file2.close()
+            file.close()
+        self.reason_bad()
+
+    def reason_bad(self):
+        for jj in range(0, len(self.blockNames)):
+            file = load_workbook('Blocks/'+self.blockNames[jj]+'/sorts/sortedFile_Bad_' + self.globalWorkBookName + '_.xlsx')
+            sheet = file['Sorted']
+            self.isIrrigatedType = [0] * 3
+            self.isIrrigatedType_counter = 0
+
+            # irrigated, rainfed, unirrigated
+            self.seed_Details_part1 = [0] * 2
+            self.seed_Details_part1_counter = 0
+
+            # conventional , sri
+            self.seed_Details_part2 = [0] * 3
+            self.seed_Details_part2_counter = 0
+
+            # high yielding, local, hybrid
+            count = 1
+
+            # pests damage avergae calculation
+            self.pestDamage = 0
+            self.pestDamage_counter = 0
+
+            file2 = load_workbook('Blocks/'+self.blockNames[jj]+'/ratios/ratio_bad_' + self.globalWorkBookName + '.xlsx')
+            sheet2 = file2['Sheet']
+            count2 = 1
+            sheet2.cell(row=1, column=8, value='irrigated ratio')
+            sheet2.cell(row=1, column=9, value='rainfed ratio')
+            sheet2.cell(row=1, column=10, value='unirrigated ratio')
+            sheet2.cell(row=1, column=11, value='conventional ratio')
+            sheet2.cell(row=1, column=12, value='sri ratio')
+            sheet2.cell(row=1, column=13, value='high yielding ratio')
+            sheet2.cell(row=1, column=14, value='local ratio')
+            sheet2.cell(row=1, column=15, value='hybrid ratio')
+            sheet2.cell(row=1, column=16, value='pest damage')
+
+            while sheet2.cell(row=count2, column=4).value != None:
+                # print('Entered sheet2 part')
+                count2 += 1
+                variety = sheet2.cell(row=count2, column=4).value
+                if variety == None: break
+
+                checker2 = False
+                count = 2
+                while sheet.cell(row=count, column=2).value != None:
+                    count = count + 1
+                    # print('sheet1 entered')
+                    # irrigation type part below
+                    if variety == sheet.cell(row=count, column=8).value:
+
+                        checker2 = True
+                        if sheet.cell(row=count, column=21).value.lower() == 'irrigated':
+                            self.isIrrigatedType[0] += 1
+                            self.isIrrigatedType_counter += 1
+                        elif sheet.cell(row=count, column=21).value.lower() == 'rainfed':
+                            self.isIrrigatedType[1] += 1
+                            self.isIrrigatedType_counter += 1
+                        elif sheet.cell(row=count, column=21).value.lower() == 'un-irrigated' or \
+                                sheet.cell(row=count, column=21).value.lower() == 'un irrigated':
+                            self.isIrrigatedType[2] += 1
+                            self.isIrrigatedType_counter += 1
+                        else:
+                            print('Some problem in checking the irrigation type from the database')
+                            print('this : ' + sheet.cell(row=count, column=21).value)
+
+                        # seed details part1 below
+
+                        if sheet.cell(row=count, column=6).value.lower() == 'conventional':
+                            self.seed_Details_part1[0] += 1
+                            self.seed_Details_part1_counter += 1
+                        elif sheet.cell(row=count, column=6).value.lower() == 'sri':
+                            self.seed_Details_part1[1] += 1
+                            self.seed_Details_part1_counter += 1
+                        else:
+                            print('Some problem in checking the seed type part 1')
+
+                        # seed details part2 below
+
+                        if sheet.cell(row=count, column=7).value.lower() == 'high yielding variety':
+                            self.seed_Details_part2[0] += 1
+                            self.seed_Details_part2_counter += 1
+                        elif sheet.cell(row=count, column=7).value.lower() == 'local':
+                            self.seed_Details_part2[1] += 1
+                            self.seed_Details_part2_counter += 1
+                        elif sheet.cell(row=count, column=7).value.lower() == 'hybrid':
+                            self.seed_Details_part2[2] += 1
+                            self.seed_Details_part2_counter += 1
+
+                        else:
+                            print('Some problem in checking the seed type part 2')
+
+                        if type(sheet.cell(row=count, column=24).value) == float or type(
+                                sheet.cell(row=count, column=24).value) == int:
+                            self.pestDamage += sheet.cell(row=count, column=24).value
+                            self.pestDamage_counter += 1
+
+                    if variety != sheet.cell(row=count, column=8).value and checker2 == True:
+                        # print('reached here 11')
+
+                        ratio = self.isIrrigatedType[0] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=8, value=ratio)
+                        # print(ratio)
+                        ratio = self.isIrrigatedType[1] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=9, value=ratio)
+                        # print(ratio)
+                        ratio = self.isIrrigatedType[2] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=10, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part1[0] / self.seed_Details_part1_counter
+                        sheet2.cell(row=count2, column=11, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part1[1] / self.seed_Details_part1_counter
+                        sheet2.cell(row=count2, column=12, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[0] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=13, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[1] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=14, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[2] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=15, value=ratio)
+                        try:
+                            ratio = self.pestDamage / self.pestDamage_counter
+                        except ZeroDivisionError:
+                            sheet2.cell(row=count2, column=16, value=0)
+                        else:
+                            sheet2.cell(row=count2, column=16, value=ratio)
+
+                        ratio = 0
+                        # initialising all to zero
+
+                        self.isIrrigatedType = [0, 0, 0];
+                        self.isIrrigatedType_counter = 0
+                        self.seed_Details_part1 = [0, 0];
+                        self.seed_Details_part1_counter = 0
+                        self.seed_Details_part2 = [0, 0, 0];
+                        self.seed_Details_part2_counter = 0
+                        self.pestDamage_counter = 0;
+                        self.pestDamage = 0
+                        checker2 = False
+                        break
+                    if sheet.cell(row=count, column=8).value == None: break
+            file2.save('Blocks/'+self.blockNames[jj]+'/ratios/ratio_bad_' + self.globalWorkBookName + '.xlsx')
+            file2.close()
+            file.close()
+        self.reason_normal()
+
+    def reason_normal(self):
+        for jj in range(0, len(self.blockNames)):
+            file = load_workbook('Blocks/'+self.blockNames[jj]+'/sorts/sortedFile_Normal_' + self.globalWorkBookName + '_.xlsx')
+            sheet = file['Sorted']
+            self.isIrrigatedType = [0] * 3
+            self.isIrrigatedType_counter = 0
+
+            # irrigated, rainfed, unirrigated
+            self.seed_Details_part1 = [0] * 2
+            self.seed_Details_part1_counter = 0
+
+            # conventional , sri
+            self.seed_Details_part2 = [0] * 3
+            self.seed_Details_part2_counter = 0
+
+            # high yielding, local, hybrid
+            count = 1
+
+            # pests damage avergae calculation
+            self.pestDamage = 0
+            self.pestDamage_counter = 0
+
+            file2 = load_workbook('Blocks/'+self.blockNames[jj]+'/ratios/ratio_normal_' + self.globalWorkBookName + '.xlsx')
+            sheet2 = file2['Sheet']
+            count2 = 1
+            sheet2.cell(row=1, column=8, value='irrigated ratio')
+            sheet2.cell(row=1, column=9, value='rainfed ratio')
+            sheet2.cell(row=1, column=10, value='unirrigated ratio')
+            sheet2.cell(row=1, column=11, value='conventional ratio')
+            sheet2.cell(row=1, column=12, value='sri ratio')
+            sheet2.cell(row=1, column=13, value='high yielding ratio')
+            sheet2.cell(row=1, column=14, value='local ratio')
+            sheet2.cell(row=1, column=15, value='hybrid ratio')
+            sheet2.cell(row=1, column=16, value='pest damage')
+
+            while sheet2.cell(row=count2, column=4).value != None:
+                # print('Entered sheet2 part')
+                count2 += 1
+                variety = sheet2.cell(row=count2, column=4).value
+                if variety == None: break
+
+                checker2 = False
+                count = 2
+                while sheet.cell(row=count, column=2).value != None:
+                    count = count + 1
+                    # print('sheet1 entered')
+                    # irrigation type part below
+                    if variety == sheet.cell(row=count, column=8).value:
+
+                        checker2 = True
+                        if sheet.cell(row=count, column=21).value.lower() == 'irrigated':
+                            self.isIrrigatedType[0] += 1
+                            self.isIrrigatedType_counter += 1
+                        elif sheet.cell(row=count, column=21).value.lower() == 'rainfed':
+                            self.isIrrigatedType[1] += 1
+                            self.isIrrigatedType_counter += 1
+                        elif sheet.cell(row=count, column=21).value.lower() == 'un-irrigated' or \
+                                sheet.cell(row=count, column=21).value.lower() == 'un irrigated':
+                            self.isIrrigatedType[2] += 1
+                            self.isIrrigatedType_counter += 1
+                        else:
+                            print('Some problem in checking the irrigation type from the database')
+                            print('this : ' + sheet.cell(row=count, column=21).value)
+
+                        # seed details part1 below
+
+                        if sheet.cell(row=count, column=6).value.lower() == 'conventional':
+                            self.seed_Details_part1[0] += 1
+                            self.seed_Details_part1_counter += 1
+                        elif sheet.cell(row=count, column=6).value.lower() == 'sri':
+                            self.seed_Details_part1[1] += 1
+                            self.seed_Details_part1_counter += 1
+                        else:
+                            print('Some problem in checking the seed type part 1')
+
+                        # seed details part2 below
+
+                        if sheet.cell(row=count, column=7).value.lower() == 'high yielding variety':
+                            self.seed_Details_part2[0] += 1
+                            self.seed_Details_part2_counter += 1
+                        elif sheet.cell(row=count, column=7).value.lower() == 'local':
+                            self.seed_Details_part2[1] += 1
+                            self.seed_Details_part2_counter += 1
+                        elif sheet.cell(row=count, column=7).value.lower() == 'hybrid':
+                            self.seed_Details_part2[2] += 1
+                            self.seed_Details_part2_counter += 1
+
+                        else:
+                            print('Some problem in checking the seed type part 2')
+
+                        if type(sheet.cell(row=count, column=24).value) == float or type(
+                                sheet.cell(row=count, column=24).value) == int:
+                            self.pestDamage += sheet.cell(row=count, column=24).value
+                            self.pestDamage_counter += 1
+
+                    if variety != sheet.cell(row=count, column=8).value and checker2 == True:
+                        # print('reached here 11')
+
+                        ratio = self.isIrrigatedType[0] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=8, value=ratio)
+                        # print(ratio)
+                        ratio = self.isIrrigatedType[1] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=9, value=ratio)
+                        # print(ratio)
+                        ratio = self.isIrrigatedType[2] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=10, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part1[0] / self.seed_Details_part1_counter
+                        sheet2.cell(row=count2, column=11, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part1[1] / self.seed_Details_part1_counter
+                        sheet2.cell(row=count2, column=12, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[0] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=13, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[1] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=14, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[2] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=15, value=ratio)
+                        try:
+                            ratio = self.pestDamage / self.pestDamage_counter
+                        except ZeroDivisionError:
+                            sheet2.cell(row=count2, column=16, value=0)
+                        else:
+                            sheet2.cell(row=count2, column=16, value=ratio)
+
+                        ratio = 0
+                        # initialising all to zero
+
+                        self.isIrrigatedType = [0, 0, 0];
+                        self.isIrrigatedType_counter = 0
+                        self.seed_Details_part1 = [0, 0];
+                        self.seed_Details_part1_counter = 0
+                        self.seed_Details_part2 = [0, 0, 0];
+                        self.seed_Details_part2_counter = 0
+                        self.pestDamage_counter = 0;
+                        self.pestDamage = 0
+                        checker2 = False
+                        break
+                    if sheet.cell(row=count, column=8).value == None: break
+            file2.save('Blocks/'+self.blockNames[jj]+'/ratios/ratio_normal_' + self.globalWorkBookName + '.xlsx')
+            file2.close()
+            file.close()
+        self.reason_good()
+
+    def reason_good(self):
+        for jj in range(0, len(self.blockNames)):
+            file = load_workbook('Blocks/'+self.blockNames[jj]+'/sorts/sortedFile_Good_' + self.globalWorkBookName + '_.xlsx')
+            sheet = file['Sorted']
+            self.isIrrigatedType = [0] * 3
+            self.isIrrigatedType_counter = 0
+
+            # irrigated, rainfed, unirrigated
+            self.seed_Details_part1 = [0] * 2
+            self.seed_Details_part1_counter = 0
+
+            # conventional , sri
+            self.seed_Details_part2 = [0] * 3
+            self.seed_Details_part2_counter = 0
+
+            # high yielding, local, hybrid
+            count = 1
+
+            # pests damage avergae calculation
+            self.pestDamage = 0
+            self.pestDamage_counter = 0
+
+            file2 = load_workbook('Blocks/'+self.blockNames[jj]+'/ratios/ratio_good_' + self.globalWorkBookName + '.xlsx')
+            sheet2 = file2['Sheet']
+            count2 = 1
+            sheet2.cell(row=1, column=8, value='irrigated ratio')
+            sheet2.cell(row=1, column=9, value='rainfed ratio')
+            sheet2.cell(row=1, column=10, value='unirrigated ratio')
+            sheet2.cell(row=1, column=11, value='conventional ratio')
+            sheet2.cell(row=1, column=12, value='sri ratio')
+            sheet2.cell(row=1, column=13, value='high yielding ratio')
+            sheet2.cell(row=1, column=14, value='local ratio')
+            sheet2.cell(row=1, column=15, value='hybrid ratio')
+            sheet2.cell(row=1, column=16, value='pest damage')
+
+            while sheet2.cell(row=count2, column=4).value != None:
+                # print('Entered sheet2 part')
+                count2 += 1
+                variety = sheet2.cell(row=count2, column=4).value
+                if variety == None: break
+
+                checker2 = False
+                count = 2
+                while sheet.cell(row=count, column=2).value != None:
+                    count = count + 1
+                    # print('sheet1 entered')
+                    # irrigation type part below
+                    if variety == sheet.cell(row=count, column=8).value:
+
+                        checker2 = True
+                        if sheet.cell(row=count, column=21).value.lower() == 'irrigated':
+                            self.isIrrigatedType[0] += 1
+                            self.isIrrigatedType_counter += 1
+                        elif sheet.cell(row=count, column=21).value.lower() == 'rainfed':
+                            self.isIrrigatedType[1] += 1
+                            self.isIrrigatedType_counter += 1
+                        elif sheet.cell(row=count, column=21).value.lower() == 'un-irrigated' or \
+                                sheet.cell(row=count, column=21).value.lower() == 'un irrigated':
+                            self.isIrrigatedType[2] += 1
+                            self.isIrrigatedType_counter += 1
+                        else:
+                            print('Some problem in checking the irrigation type from the database')
+                            print('this : ' + sheet.cell(row=count, column=21).value)
+
+                        # seed details part1 below
+
+                        if sheet.cell(row=count, column=6).value.lower() == 'conventional':
+                            self.seed_Details_part1[0] += 1
+                            self.seed_Details_part1_counter += 1
+                        elif sheet.cell(row=count, column=6).value.lower() == 'sri':
+                            self.seed_Details_part1[1] += 1
+                            self.seed_Details_part1_counter += 1
+                        else:
+                            print('Some problem in checking the seed type part 1')
+
+                        # seed details part2 below
+
+                        if sheet.cell(row=count, column=7).value.lower() == 'high yielding variety':
+                            self.seed_Details_part2[0] += 1
+                            self.seed_Details_part2_counter += 1
+                        elif sheet.cell(row=count, column=7).value.lower() == 'local':
+                            self.seed_Details_part2[1] += 1
+                            self.seed_Details_part2_counter += 1
+                        elif sheet.cell(row=count, column=7).value.lower() == 'hybrid':
+                            self.seed_Details_part2[2] += 1
+                            self.seed_Details_part2_counter += 1
+
+                        else:
+                            print('Some problem in checking the seed type part 2')
+
+                        if type(sheet.cell(row=count, column=24).value) == float or type(
+                                sheet.cell(row=count, column=24).value) == int:
+                            self.pestDamage += sheet.cell(row=count, column=24).value
+                            self.pestDamage_counter += 1
+
+                    if variety != sheet.cell(row=count, column=8).value and checker2 == True:
+                        # print('reached here 11')
+
+                        ratio = self.isIrrigatedType[0] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=8, value=ratio)
+                        # print(ratio)
+                        ratio = self.isIrrigatedType[1] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=9, value=ratio)
+                        # print(ratio)
+                        ratio = self.isIrrigatedType[2] / self.isIrrigatedType_counter
+                        sheet2.cell(row=count2, column=10, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part1[0] / self.seed_Details_part1_counter
+                        sheet2.cell(row=count2, column=11, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part1[1] / self.seed_Details_part1_counter
+                        sheet2.cell(row=count2, column=12, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[0] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=13, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[1] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=14, value=ratio)
+                        # print(ratio)
+                        ratio = self.seed_Details_part2[2] / self.seed_Details_part2_counter
+                        sheet2.cell(row=count2, column=15, value=ratio)
+                        try:
+                            ratio = self.pestDamage / self.pestDamage_counter
+                        except ZeroDivisionError:
+                            sheet2.cell(row=count2, column=16, value=0)
+                        else:
+                            sheet2.cell(row=count2, column=16, value=ratio)
+
+                        ratio = 0
+                        # initialising all to zero
+
+                        self.isIrrigatedType = [0, 0, 0];
+                        self.isIrrigatedType_counter = 0
+                        self.seed_Details_part1 = [0, 0];
+                        self.seed_Details_part1_counter = 0
+                        self.seed_Details_part2 = [0, 0, 0];
+                        self.seed_Details_part2_counter = 0
+                        self.pestDamage_counter = 0;
+                        self.pestDamage = 0
+                        checker2 = False
+                        break
+                    if sheet.cell(row=count, column=8).value == None: break
+            file2.save('Blocks/'+self.blockNames[jj]+'/ratios/ratio_good_' + self.globalWorkBookName + '.xlsx')
+            file2.close()
+            file.close()
+
+
+
 
 
 if __name__  ==  '__main__' :
@@ -846,7 +1579,6 @@ if __name__  ==  '__main__' :
     obj.avg_Good()
     obj.bad()
     obj.opening()
-
 
 
 
